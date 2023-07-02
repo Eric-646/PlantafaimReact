@@ -1,9 +1,9 @@
-import { Routes, Route, Link } from "react-router-dom";
-import About from "pages/About/About";
-import Home from "pages/Home/Home";
+import { Routes, Route } from "react-router-dom";
 
-import Footer from "./Footer/Footer";
+import TodoSingle from "pages/TodoSingle/TodoSingle";
+import Home from "pages/Home/Home";
 import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 import "./Layout.scss";
 
 function Layout() {
@@ -11,10 +11,10 @@ function Layout() {
     <div className="Layout">
       <Header />
       <div class="container">
-        <Routes>
+      <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+          <Route path="todo/:id" element={<TodoSingle />} />
+      </Routes>
       </div>
       <Footer />
     </div>

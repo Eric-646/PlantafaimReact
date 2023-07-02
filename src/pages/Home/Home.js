@@ -1,32 +1,28 @@
-import Title from "components/Title/Title";
 import styles from "./Home.module.scss";
-import { useState } from "react";
-import CardFruit from "components/CardFruit/CardFruit";
+import Title from "components/Title/Title";
+import React, { useEffect, useState } from "react";
+import CardTodo from "components/CardTodo/CardTodo";
+import { getTodos } from "api/Todos";
 
 function Home() {
-  const [fruits, setFruits] = useState([
-    "banane",
-    "pomme",
-    "poire",
-    "fraise",
-    "framboise",
-    "mangue",
-  ]);
-  const addFruit = (fruit) => {
-    setFruits([...fruits, fruit]);
-  }
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    async function getTodosLoad() {
+      const todos = await getTodos();
+      setTodos(todos);
+    }
+    getTodosLoad();
+  }, []);
+
   return (
     <div className={styles.main}>
       <Title text={`Page d'acceuil`} />
-
-      <button onClick={() => addFruit('Kiwi')}>Kiwi</button>
-
       <div class={styles.grid}>
-        {fruits.map((fruit, index) => (
-          <CardFruit fruit={fruit} key={index} />
+        {todos.map((todo, index) => (
+          <CardTodo title={todo.title} id={todo.id} key={index} />
         ))}
       </div>
-     
     </div>
   );
 }
